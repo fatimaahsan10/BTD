@@ -1,0 +1,10 @@
+gradio
+tensorflow
+numpy
+reportlab
+qrcode
+Pillow
+gTTS
+
+
+

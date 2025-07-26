@@ -105,8 +105,9 @@ def predict_and_report(img, name, age, email, lang):
 
     # Voice output (safe)
     try:
-        tts_text = f"{translations[lang]['tts_message']} {result}"
+        tts_text = f"{translations[lang]['tts_message']} {result}. {premium_msg}"
         tts = gTTS(tts_text, lang='ur' if lang == 'ur' else 'en')
+
         tts_path = tempfile.mktemp(suffix=".mp3")
         tts.save(tts_path)
     except:
@@ -127,7 +128,15 @@ def predict_and_report(img, name, age, email, lang):
     return f"{translations[lang]['result']}: {result}", confidence_html, pdf_report, premium_msg, tts_path, email_msg
 
 # ✅ Gradio UI
-with gr.Blocks(theme="default") as demo:
+with gr.Blocks(theme="default", css="""
+body {overflow-y: auto !important;}
+.gradio-container {height: auto !important; overflow-y: auto !important;}
+@media (max-width: 768px) {
+    .gradio-container .row {flex-direction: column !important;}
+}
+""") as demo:
+
+
     gr.Markdown("# 🧠 Brain Tumor Detection App")
     gr.Markdown("**Early Detection Saves Lives! Built for rural and underdeveloped areas.**")
 
